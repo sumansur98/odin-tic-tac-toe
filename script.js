@@ -46,10 +46,48 @@ function GameBoard(){
     }
 
     const checkWin = () =>{
-        
+        if(board[0][0].getCellValue()!==0 
+        && (board[0][0].getCellValue()===board[0][1].getCellValue()) 
+        && (board[0][0].getCellValue()===board[0][2].getCellValue())){
+            return board[0][0].getCellValue();
+        }else if(board[1][0].getCellValue()!==0 
+        && (board[1][0].getCellValue()===board[1][1].getCellValue()) 
+        && (board[1][0].getCellValue()===board[1][2].getCellValue())){
+            return board[1][0].getCellValue();
+        }else if(board[2][0].getCellValue()!==0 
+        && (board[2][0].getCellValue()===board[2][1].getCellValue()) 
+        && (board[2][0].getCellValue()===board[2][2].getCellValue())){
+            return board[2][0].getCellValue();
+        }else if(board[0][0].getCellValue()!==0 
+        && (board[0][0].getCellValue()===board[1][0].getCellValue()) 
+        && (board[1][0].getCellValue()===board[2][0].getCellValue())){
+            return board[0][0].getCellValue();
+        }else if(board[0][0].getCellValue()!==0 
+        && (board[0][0].getCellValue()===board[1][0].getCellValue()) 
+        && (board[1][0].getCellValue()===board[2][0].getCellValue())){
+            return board[0][0].getCellValue();
+        }else if(board[0][1].getCellValue()!==0 
+        && (board[0][1].getCellValue()===board[1][1].getCellValue()) 
+        && (board[1][1].getCellValue()===board[2][1].getCellValue())){
+            return board[0][1].getCellValue();
+        }else if(board[0][2].getCellValue()!==0 
+        && (board[0][2].getCellValue()===board[1][2].getCellValue()) 
+        && (board[1][2].getCellValue()===board[2][2].getCellValue())){
+            return board[0][2].getCellValue();
+        }else if(board[0][0].getCellValue()!==0 
+        && (board[0][0].getCellValue()===board[1][1].getCellValue()) 
+        && (board[1][1].getCellValue()===board[2][2].getCellValue())){
+            return board[0][0].getCellValue();
+        }else if(board[0][2].getCellValue()!==0 
+        && (board[0][2].getCellValue()===board[1][1].getCellValue()) 
+        && (board[1][1].getCellValue()===board[2][0].getCellValue())){
+            return board[0][0].getCellValue();
+        }else{
+            return false;
+        }
     }
 
-    return {getBoard, printBoard, markCell};
+    return {getBoard, printBoard, markCell, checkWin};
 
 }
 
@@ -77,7 +115,10 @@ function GameController(){
     const playRound = (row, col)=>{
         board.markCell(activePlayer.token, row, col);
         board.printBoard();
-
+        if(board.checkWin()){
+            console.log(`${activePlayer.player} won`);
+            return;
+        }
         switchActivePlayer();
     }
 
