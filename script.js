@@ -176,7 +176,9 @@ function ScreenController(){
 
         if(winFlag){
             turnDiv.textContent = `${activePlayer.player} won`;
-            
+            document.querySelectorAll('.cell').forEach((cell)=>{
+                cell.disabled = true;
+            })
         }
 
     }
