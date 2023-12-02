@@ -18,6 +18,7 @@ function GameBoard(){
     let rows = 3;
     let cols = 3;
     let board = [];
+    let movesCount = 0;
 
     const resetBoard = ()=>{
         for(let i=0;i<rows;i++){
@@ -26,6 +27,7 @@ function GameBoard(){
                 board[i].push(Cell());
             }
         }
+        movesCount = 0;
     }
 
     resetBoard();
@@ -47,7 +49,8 @@ function GameBoard(){
         if(prevCellVal !== 0){
             return;
         }
-        board[rowIndex][colIndex].changeValue(player)
+        board[rowIndex][colIndex].changeValue(player);
+        movesCount++;
     }
 
     const checkWin = () =>{
@@ -88,6 +91,9 @@ function GameBoard(){
         && (board[1][1].getCellValue()===board[2][0].getCellValue())){
             return true
         }else{
+            if(movesCount===9){
+                return 'tie';
+            }
             return false;
         }
     }
@@ -175,7 +181,11 @@ function ScreenController(){
         });
 
         if(winFlag){
-            turnDiv.textContent = `${activePlayer.player} won`;
+            if(winFlag === 'tie'){
+                turnDiv.textContent = `It's a Tie`;
+            }else{
+                turnDiv.textContent = `${activePlayer.player} won`;
+            }
             document.querySelectorAll('.cell').forEach((cell)=>{
                 cell.disabled = true;
             })
